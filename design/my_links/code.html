@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ShortenIt - Links Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-container": "#005729",
+                        "on-secondary-container": "#4c5680",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#dee9fc",
+                        "surface-container-low": "#eff4ff",
+                        "on-surface-variant": "#444653",
+                        "outline": "#757684",
+                        "on-primary-fixed": "#001453",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#121c2a",
+                        "primary-fixed-dim": "#b8c4ff",
+                        "background": "#f8f9ff",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#3755c3",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-background": "#121c2a",
+                        "surface-dim": "#d0dbed",
+                        "primary": "#00288e",
+                        "surface-bright": "#f8f9ff",
+                        "inverse-surface": "#27313f",
+                        "on-error": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "on-primary-container": "#a8b8ff",
+                        "surface-variant": "#d9e3f6",
+                        "on-tertiary-container": "#3ed478",
+                        "on-secondary-fixed": "#0e1840",
+                        "inverse-primary": "#b8c4ff",
+                        "surface-container-highest": "#d9e3f6",
+                        "primary-fixed": "#dde1ff",
+                        "tertiary": "#003d1b",
+                        "on-primary-fixed-variant": "#173bab",
+                        "primary-container": "#1e40af",
+                        "on-tertiary-fixed": "#00210c",
+                        "secondary-container": "#c3ccfe",
+                        "secondary": "#525c87",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#bbc4f6",
+                        "outline-variant": "#c4c5d5",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#005227",
+                        "tertiary-fixed-dim": "#4de082",
+                        "secondary-fixed": "#dde1ff",
+                        "on-secondary-fixed-variant": "#3b446e",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#6dfe9c",
+                        "surface-container": "#e6eeff"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-6 py-3 w-full">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black tracking-tighter text-blue-800 dark:text-blue-400">ShortenIt</span>
+<div class="hidden md:flex items-center bg-surface-container-low px-3 py-1.5 rounded-full">
+<span class="material-symbols-outlined text-outline text-sm mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-64 p-0" placeholder="Search links..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-100/50 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100/50 rounded-full transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="User Profile Avatar" data-alt="professional portrait of a young male executive in a blue studio setting with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAht17_ZpIrJo7vaSQFyWCwgaw_LNMRMnk0ZRBwXjGIyyQwKoo4A4lok18mhyEY3bY--czmC3tid1f6-_ERDWwHtvuPiblOE4TO1q1aYjckql1Ybmb8BZFEEmDNP0vvGv-Xhl7BBK_Hxaai_wfI1zbHH5UBMFah4Y5SAK4QRLggrThAGGnPHyJQcgj_DuEWC9QT-xcwDoGjf4ARJoz0rpg3UmTAErF2jFFVN0BMFm9uRqUjuqoghaDHUtvxlcy7hvU9BvOGaRU2x6p_"/>
+</div>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 pt-20 bg-slate-50 dark:bg-slate-950 border-r border-slate-200/15 dark:border-slate-800/15 hidden md:block">
+<div class="flex flex-col h-full">
+<div class="flex flex-col gap-2 py-4">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-900 mx-2 rounded-lg duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-900 mx-2 rounded-lg duration-200" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-medium text-sm">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg mx-2 duration-200 font-bold" href="#">
+<span class="material-symbols-outlined">link</span>
+<span class="font-medium text-sm">Links</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-900 mx-2 rounded-lg duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium text-sm">Settings</span>
+</a>
+</div>
+<div class="mt-auto pb-8 flex flex-col gap-2">
+<div class="px-6 py-4 mx-4 mb-4 rounded-xl bg-gradient-to-br from-primary to-primary-container text-white">
+<p class="text-xs font-bold opacity-80 uppercase tracking-wider mb-1">Pro Plan</p>
+<p class="text-sm mb-3">Unlock unlimited custom domains.</p>
+<button class="w-full py-2 bg-white text-primary font-bold text-xs rounded-full hover:bg-slate-100 transition-colors">Upgrade to Pro</button>
+</div>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 mx-2 rounded-lg" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-medium text-sm">Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 mx-2 rounded-lg" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-medium text-sm">Log Out</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="md:ml-64 pt-24 pb-12 px-6 md:px-12">
+<header class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h1 class="text-4xl md:text-5xl font-black tracking-tighter text-on-surface mb-2">My Links</h1>
+<p class="text-on-surface-variant max-w-lg">Manage and monitor your shortened URLs. High-precision redirects with detailed tracking.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-6 py-3 bg-white border border-outline-variant text-on-surface font-semibold rounded-full hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                        Filter
+                    </button>
+<button class="flex items-center gap-2 px-8 py-3 bg-gradient-to-br from-primary to-primary-container text-white font-bold rounded-full shadow-lg shadow-primary/20 active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+                        Create New Link
+                    </button>
+</div>
+</div>
+</header>
+<!-- Stats Overview (Bento) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<div class="bg-surface-container-lowest p-6 rounded-full flex items-center justify-between border border-outline-variant/10">
+<div>
+<p class="text-xs font-bold text-outline uppercase tracking-widest mb-1">Total Links</p>
+<p class="text-2xl font-black text-on-surface">1,284</p>
+</div>
+<div class="h-12 w-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">link</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-full flex items-center justify-between border border-outline-variant/10">
+<div>
+<p class="text-xs font-bold text-outline uppercase tracking-widest mb-1">Total Clicks</p>
+<p class="text-2xl font-black text-on-surface">45.2k</p>
+</div>
+<div class="h-12 w-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">ads_click</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-full flex items-center justify-between border border-outline-variant/10">
+<div>
+<p class="text-xs font-bold text-outline uppercase tracking-widest mb-1">Active Today</p>
+<p class="text-2xl font-black text-on-surface">312</p>
+</div>
+<div class="h-12 w-12 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+</div>
+</div>
+<!-- Main Data Table Container -->
+<div class="bg-surface-container-low rounded-3xl overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant border-b border-outline-variant/20">
+<th class="px-8 py-5 text-xs font-bold uppercase tracking-widest">Date Created</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest">Short Link</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest">Original URL</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-center">Clicks</th>
+<th class="px-8 py-5 text-xs font-bold uppercase tracking-widest text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10 bg-surface-container-lowest">
+<!-- Table Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-6">
+<span class="text-sm font-medium text-on-surface">Oct 24, 2024</span>
+</td>
+<td class="px-6 py-6">
+<div class="flex items-center gap-2">
+<span class="text-primary font-bold">short.it/xR7w2</span>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-base">content_copy</span>
+</button>
+</div>
+</td>
+<td class="px-6 py-6">
+<span class="text-sm text-outline block truncate max-w-xs">https://marketing.enterprise.com/campaign/winter-sale-2024-landing</span>
+</td>
+<td class="px-6 py-6 text-center">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-high text-xs font-bold text-primary">2,410</span>
+</td>
+<td class="px-8 py-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 text-outline hover:text-primary hover:bg-primary-fixed rounded-lg transition-all">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 text-outline hover:text-error hover:bg-error-container rounded-lg transition-all">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Table Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-6">
+<span class="text-sm font-medium text-on-surface">Oct 22, 2024</span>
+</td>
+<td class="px-6 py-6">
+<div class="flex items-center gap-2">
+<span class="text-primary font-bold">short.it/product_v2</span>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-base">content_copy</span>
+</button>
+</div>
+</td>
+<td class="px-6 py-6">
+<span class="text-sm text-outline block truncate max-w-xs">https://store.brand.com/new-collection/performance-gear/black-friday</span>
+</td>
+<td class="px-6 py-6 text-center">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-high text-xs font-bold text-primary">892</span>
+</td>
+<td class="px-8 py-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 text-outline hover:text-primary hover:bg-primary-fixed rounded-lg transition-all">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 text-outline hover:text-error hover:bg-error-container rounded-lg transition-all">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Table Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-6">
+<span class="text-sm font-medium text-on-surface">Oct 21, 2024</span>
+</td>
+<td class="px-6 py-6">
+<div class="flex items-center gap-2">
+<span class="text-primary font-bold">short.it/b_case_3</span>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-base">content_copy</span>
+</button>
+</div>
+</td>
+<td class="px-6 py-6">
+<span class="text-sm text-outline block truncate max-w-xs">https://resources.techcorp.io/whitepaper/cloud-native-security-2024</span>
+</td>
+<td class="px-6 py-6 text-center">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-high text-xs font-bold text-primary">1,105</span>
+</td>
+<td class="px-8 py-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 text-outline hover:text-primary hover:bg-primary-fixed rounded-lg transition-all">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 text-outline hover:text-error hover:bg-error-container rounded-lg transition-all">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Table Row 4 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-6">
+<span class="text-sm font-medium text-on-surface">Oct 19, 2024</span>
+</td>
+<td class="px-6 py-6">
+<div class="flex items-center gap-2">
+<span class="text-primary font-bold">short.it/social_bio</span>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-base">content_copy</span>
+</button>
+</div>
+</td>
+<td class="px-6 py-6">
+<span class="text-sm text-outline block truncate max-w-xs">https://linktr.ee/officialbrandname_social_hub</span>
+</td>
+<td class="px-6 py-6 text-center">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-high text-xs font-bold text-primary">12,431</span>
+</td>
+<td class="px-8 py-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 text-outline hover:text-primary hover:bg-primary-fixed rounded-lg transition-all">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 text-outline hover:text-error hover:bg-error-container rounded-lg transition-all">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-8 py-6 bg-surface-container border-t border-outline-variant/10 flex items-center justify-between">
+<span class="text-xs font-medium text-on-surface-variant">Showing 1 to 10 of 1,284 links</span>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-lg bg-surface-container-low text-outline cursor-not-allowed opacity-50">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div class="flex gap-1">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center bg-primary text-white text-xs font-bold">1</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-surface-container-high text-on-surface-variant text-xs font-bold">2</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-surface-container-high text-on-surface-variant text-xs font-bold">3</button>
+<span class="px-2 text-on-surface-variant">...</span>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-surface-container-high text-on-surface-variant text-xs font-bold">129</button>
+</div>
+<button class="p-2 rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 mt-12 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800/30">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 ml-64">
+<span class="text-sm font-bold text-slate-300">ShortenIt Precision</span>
+<div class="flex gap-8 my-6 md:my-0">
+<a class="text-xs text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 transition-all duration-300" href="#">Privacy Policy</a>
+<a class="text-xs text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 transition-all duration-300" href="#">Terms of Service</a>
+<a class="text-xs text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 transition-all duration-300" href="#">API Documentation</a>
+<a class="text-xs text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 transition-all duration-300" href="#">System Status</a>
+</div>
+<p class="text-xs text-slate-400 dark:text-slate-500 font-normal">© 2024 ShortenIt Precision. All rights reserved.</p>
+</div>
+</footer>
+</body></html>
