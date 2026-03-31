@@ -17,6 +17,8 @@ const Dashboard = () => {
     const [links, setLinks] = useState<LinkRecord[]>([]);
     const [copiedId, setCopiedId] = useState<string | null>(null);
 
+    const [error, setError] = useState<string | null>(null);
+
     const fetchHistory = async () => {
         if (!user) return;
         try {
@@ -40,6 +42,7 @@ const Dashboard = () => {
     const handleShorten = async () => {
         if (!url || !user) return;
         setLoading(true);
+        setError(null);
         try {
             const token = await user.getIdToken();
             const response = await fetch(`${API_URL}/api/url/shorten`, {
@@ -55,10 +58,10 @@ const Dashboard = () => {
                 setUrl('');
                 await fetchHistory(); // refresh the list
             } else {
-                alert(data.error);
+                setError(data.error || `Server error: ${response.status}`);
             }
-        } catch (error) {
-            console.error("Error shortening URL", error);
+        } catch (err: any) {
+            setError(`Cannot reach backend. Check that VITE_API_URL is set in Vercel. (${err.message})`);
         } finally {
             setLoading(false);
         }
@@ -100,6 +103,12 @@ const Dashboard = () => {
                             </button>
                         </div>
                     </div>
+                    {error && (
+                        <div className="mt-4 bg-error-container text-on-error-container text-sm p-3 rounded-xl border border-error/20 flex items-start gap-2">
+                            <span className="material-symbols-outlined text-lg shrink-0">error</span>
+                            <span>{error}</span>
+                        </div>
+                    )}
                 </div>
             </section>
 
